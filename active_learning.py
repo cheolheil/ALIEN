@@ -6,10 +6,9 @@ from sklearn.metrics import mean_squared_error
 
 
 class ActiveLearningMachine:
-    def __init__(self, model, strategy, budget, test_dataset=None, eval_metric=mean_squared_error):
+    def __init__(self, model, strategy, test_dataset=None, eval_metric=mean_squared_error):
         self.model = model
         self.strategy = strategy
-        self.budget = budget
         if test_dataset != None:
             self.Xtest, self.ytest = test_dataset
             self.prog = []
