@@ -1,5 +1,7 @@
-# Partitioned Active Learning
-This is the code for implementation of Partitioned Active Learning (from [Lee et al. (2021)](https://arxiv.org/abs/2105.08547)).
+# Active Learning for Intelligent ENgineering Systems
+The code is built mainly to implement the following works:
+- Partitioned Active Learning (from [Lee et al. (2021)](https://arxiv.org/abs/2105.08547)).
+- Physics-constrained Active Learning (from [Lee et al. (2021)](https://arxiv.org/abs/2110.14443)).
 
 The package contains the following scripts:
 - `active_learning.py`: active learning class that initiates with a model, a strategy.
