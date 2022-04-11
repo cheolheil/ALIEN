@@ -10,6 +10,8 @@ The package contains the following scripts:
 - `sim_funcs.py`: contains some simulation functions.
 - `strategy_lib.py`: a library of active learning strategies can be plugged into the active learning module.
 
+🗡️ Note: Currently, the active learning class does not support Physics-constrained Active Learning yet. It will be merged soon. For the implementation of Physics-constrained Active Learning, please refer to the simulation notebook `physcal_sim.ipynb` in the code.
+
 The code requires `scikit-learn > 1.0`.
 
 A simple implementation example is as follows.
