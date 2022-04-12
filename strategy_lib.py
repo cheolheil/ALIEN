@@ -144,6 +144,24 @@ def physcal_integrate(X_cand, f_gp, h_gp, xi, weight=0.5, p=1, safety=0.95, ref_
     return score, score_mat
 
 
+def segp(X_cand, f_gp, h_gp, safety=0.95):
+    def nuisance_value(x, h_gp):
+        K_ = h_gp.base_estimator_.kernel_(h_gp.base_estimator_.X_train_, x)
+        mu_ = K_.T.dot(h_gp.base_estimator_.y_train_ - h_gp.base_estimator_.pi_)
+        v_ = solve_triangular(h_gp.base_estimator_.L_, h_gp.base_estimator_.W_sr_[:, np.newaxis] * K_, lower=True)
+        sigma_ = np.sqrt(h_gp.base_estimator_.kernel_.diag(x) - np.einsum("ij,ij->j", v_, v_))
+        return mu_, sigma_
+
+    mu_h, sigma_h = nuisance_value(X_cand, h_gp)
+    safe_idx = np.where(mu_h + stats.norm.ppf(safety) * sigma_h >= 0)
+    S = X_cand[safe_idx]
+    
+    score = np.zeros(len(X_cand))
+    score[safe_idx] = max_entropy(S, f_gp)
+    return score
+
+
+
 ### Below would be deprecated
 # def safe_region_expansion(X, gp, xi, alpha=2., truncate=True):
 #     mu, sigma = gp.predict(X, return_std=True)
